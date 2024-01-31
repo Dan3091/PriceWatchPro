@@ -160,7 +160,7 @@ class App(Tk):
         self.withdraw()
         image = Image.open("favicon.ico")
         menu = item("Quit", self.quit_window), item("Show", self.show_window)
-        icon = pystray.Icon("name", image, "My System Tray Icon", menu)
+        icon = pystray.Icon("name", image, "PriceWatchPro", menu)
         icon.run_detached()
 
 
