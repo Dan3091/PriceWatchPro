@@ -17,3 +17,8 @@ class App(Tk):
         self.resizable(False, False)
         self.configure(bg="#131921")
         self.overrideredirect(True)
+
+        # Calculation of the main window position
+        posx = str((self.winfo_screenwidth() // 2) - (300 // 2))
+        posy = str((self.winfo_screenheight() // 2) - (500 // 2))
+        self.geometry(f"300x550+{posx}+{posy}")
