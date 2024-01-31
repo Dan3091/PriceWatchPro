@@ -128,3 +128,39 @@ class App(Tk):
                                font="Italic 16",
                                command=self.destroy)
         self.quit_btn.place(x=157, y=470)
+
+    # Create a system to minimize the window to system tray bar
+    def show_window(self, icon, item):
+        """
+        This function quit the icon from system tray bar,
+        and call the self.deiconify() function
+        that make the main window appear.
+        """
+
+        icon.stop()
+        self.after(0, self.deiconify())
+
+    def quit_window(self, icon, item):
+        """
+        Instead of the previous function this one
+        quit the icon from system tray bar and
+        destroy the main window.
+        """
+
+        icon.stop()
+        self.destroy()
+
+    def system_tray_window(self):
+        """
+        This function hide the main window and creates
+        a system tray icon with a menu Show, Quit buttons,
+        then it run in a detached mode.
+        """
+
+        self.withdraw()
+        image = Image.open("favicon.ico")
+        menu = item("Quit", self.quit_window), item("Show", self.show_window)
+        icon = pystray.Icon("name", image, "My System Tray Icon", menu)
+        icon.run_detached()
+
+
