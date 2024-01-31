@@ -67,6 +67,33 @@ def validate_password():
         app.label_password_error.config(text="")
         return True
 
+def popup_window(message):
+    """
+    This function creates a popup window.
+    """
+
+    pop = Toplevel()
+    pop.grab_set()
+    pop.configure(bg="#131921")
+    pop.resizable(False, False)
+    pop.overrideredirect(True)
+    pop_label = Label(pop, text=message, font="Italic 14", bg="#131921", fg="white")
+    pop_label.pack(pady=10, padx=10)
+    pop_button = Button(pop, text="OK",
+                        background="#232f3e",
+                        foreground="white",
+                        activebackground="#283f5b",
+                        activeforeground="white",
+                        highlightcolor='red',
+                        width=8,
+                        font="Italic 16",
+                        command=pop.destroy)
+    pop_button.pack(pady=30)
+    pop.update_idletasks()
+    posx = str((pop.winfo_screenwidth() // 2) - (pop.winfo_width() // 2))
+    posy = str((pop.winfo_screenheight() // 2) - (pop.winfo_height() // 2))
+    pop.geometry(f"{pop.winfo_width()}x{pop.winfo_height()}+{posx}+{posy}")
+
 def start_process():
     pass
 
