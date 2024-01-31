@@ -23,4 +23,16 @@ class App(Tk):
         posy = str(self.winfo_screenheight() // 2 - 530 // 2)
         self.geometry(f"300x530+{posx}+{posy}")
 
-
+        # Label App Name and Canvas
+        label_title = Label(self,
+                            text="PriceWatchPro",
+                            font="Italic 18",
+                            bg="#131921",
+                            fg="white")
+        label_title.pack()
+        canvas = Canvas(self,
+                        width=280,
+                        height=5,
+                        bg="#ff9900",
+                        highlightthickness=0)
+        canvas.pack()
