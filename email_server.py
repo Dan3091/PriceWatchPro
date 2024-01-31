@@ -29,3 +29,20 @@ def login_server(email_name, email_pass):
         return mail_server
     except:
         return False
+
+def send_message(email_name, email_pass, message):
+    """
+    This function takes three arguments email_name, email_pass,
+    message, then it call the login_server() function with email name and
+    password as arguments to log in, and by using send_message() method
+    with message as argument from server_response object to send the message,
+    and finally return True if it succeeds otherwise False.
+    """
+
+    try:
+        server_response = login_server(email_name, email_pass)
+        server_response.send_message(message)
+        server_response.quit()
+        return True
+    except:
+        return False
