@@ -104,3 +104,27 @@ class App(Tk):
         self.label_password_error.pack()
         self.password_entry = Entry(self, font="Italic 14", bg="#232f3e", fg="white", show="*")
         self.password_entry.pack()
+
+        # Created two buttons start_btn and quit_btn
+        self.start_btn = Button(self,
+                                text='Start',
+                                background="#232f3e",
+                                foreground="white",
+                                activebackground="#283f5b",
+                                activeforeground="white",
+                                highlightcolor='red',
+                                width=8,
+                                font="Italic 16",
+                                command=self.start_process)
+        self.start_btn.place(x=38, y=470)
+        self.quit_btn = Button(self,
+                               text='Quit',
+                               background="#232f3e",
+                               foreground="white",
+                               activebackground="#283f5b",
+                               activeforeground="white",
+                               highlightcolor='red',
+                               width=8,
+                               font="Italic 16",
+                               command=self.destroy)
+        self.quit_btn.place(x=157, y=470)
