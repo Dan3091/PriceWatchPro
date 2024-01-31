@@ -43,3 +43,15 @@ def html_file():
     html_data = requests.get(url, headers=amazon_headers)
     soup = BeautifulSoup(html_data.text, "html.parser")
     return soup
+
+def check_server_availability(search_product_name):
+    """
+    Here this function check the availability of the server,
+    by using the status_code method if status code is diverse from code 200
+    it returns False and True otherwise.
+    """
+
+    response = requests.get(f"https://www.amazon.com/s?k={search_product_name}", headers=amazon_headers)
+    if response.status_code != 200:
+        return False
+    return True
