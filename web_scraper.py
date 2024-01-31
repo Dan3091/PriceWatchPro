@@ -55,3 +55,21 @@ def check_server_availability(search_product_name):
     if response.status_code != 200:
         return False
     return True
+
+def next_page(soup):
+    """
+    By using the find method from soup object,
+    this function check if the tag for next page button
+    with href is preset then assign it to url and return it,
+    otherwise it return None.
+    """
+
+    global url
+    try:
+        page = soup.find("span", class_="s-pagination-strip")
+        if page.find("span", class_="s-pagination-item s-pagination-next s-pagination-disabled") == None:
+            url = f"http://www.amazon.com/{str(page.find('a', class_='s-pagination-item s-pagination-next s-pagination-button s-pagination-separator').get('href'))}"
+            return url
+    except:
+        pass
+    return
