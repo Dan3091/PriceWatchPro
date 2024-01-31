@@ -138,6 +138,7 @@ def start_process():
                 popup_window("Can't connect to Gmail,\n check your email and password!")
                 break
             time.sleep(60)
+
 if __name__ == "__main__":
     app = App(start_process)
     app.mainloop()
