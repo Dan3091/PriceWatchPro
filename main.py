@@ -95,8 +95,49 @@ def popup_window(message):
     pop.geometry(f"{pop.winfo_width()}x{pop.winfo_height()}+{posx}+{posy}")
 
 def start_process():
-    pass
+    """
+    This is the main function when the button start is clicked
+    first it validates all entries after that it enter in a while loop and tries to connect
+    to the specified gmail account if it can't a popup message appear,
+    otherwise the main window are hide and an icon appear in system tray bar,
+    now it try to search the specified product if it returns False
+    then a popup is called and a message appear, otherwise it continue
+    searching for the specified product name and price it returns
+    the data and tries to send them to the specified email,
+    otherwise it tries again after 30 minutes.
+    """
 
+    if all((validate_product_item(), validate_price(), validate_email(), validate_password())):
+        app.system_tray_window()
+        while True:
+            product_item = app.product_entry.get()
+            product_price = float(app.price_entry.get())
+            email_name = app.email_entry.get()
+            email_pass = app.password_entry.get()
+            login = login_server(email_name, email_pass)
+            if login:
+                if check_server_availability(product_item):
+                    data = search_item(product_price, product_item)
+                    if data != False:
+                        if data != {}:
+                            fstring_message = "Hi here are all the products less or egual to the specified Price:\n\n"
+                            for k, v in data.items():
+                                fstring_message += v[0] + "\n" + k + "\n" + "Price: " + v[1] + "\n" + "Amazon Page: " + v[2] + "\n\n"
+                            message = create_message(email_name,
+                                                 "Amazon Notifier Price Go Down",
+                                                 fstring_message)
+                            send_message(email_name, email_pass, message)
+                            break
+                    else:
+                        popup_window(f"No Results for {product_item}")
+                        break
+                else:
+                    popup_window("Amazon Server Not Available!")
+                    break
+            else:
+                popup_window("Can't connect to Gmail,\n check your email and password!")
+                break
+            time.sleep(60)
 if __name__ == "__main__":
     app = App(start_process)
     app.mainloop()
