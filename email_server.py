@@ -14,3 +14,18 @@ def create_message(email_name, subject, content_message):
     message["Subject"] = subject
     message.set_content(content_message)
     return message
+
+def login_server(email_name, email_pass):
+    """
+    The function takes two arguments email_name and email_pass,
+    and it tries to log in to GMAIL smtp server, if it succeeds
+    then it return the mail_server otherwise returns False.
+    """
+
+    try:
+        mail_server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        mail_server.set_debuglevel(1)
+        mail_server.login(email_name, email_pass)
+        return mail_server
+    except:
+        return False
