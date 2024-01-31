@@ -30,3 +30,16 @@ amazon_headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
                   "viewport-width": "1071"}
 url = ""
 
+
+def html_file():
+    """
+    This function takes two arguments the url and headers,
+    and by using the get method from requests module,
+    it receives a response and assign it to html_data,
+    after that it use BeautifulSoup class from bs4 module,
+    and creates a soup object and return it.
+    """
+
+    html_data = requests.get(url, headers=amazon_headers)
+    soup = BeautifulSoup(html_data.text, "html.parser")
+    return soup
