@@ -73,3 +73,43 @@ def next_page(soup):
     except:
         pass
     return
+
+def search_item(price, search_product_name):
+    """
+    This is the main function that takes two arguments,
+    the price and the search_product_name and if present,
+    returns a dictionary data in format:
+    {product_name: [product_title, product_price, product_url]}
+    otherwise return False.
+     """
+
+    data = {}
+    global url
+    try:
+        search_product_name = search_product_name.replace(" ", "+")
+    except:
+        pass
+    url = f"https://www.amazon.com/s?k={search_product_name}"
+    soup = html_file()
+    if "No results for " in soup.get_text():
+        return False
+
+    while True:
+        soup = html_file()
+        url = next_page(soup)
+        if not url:
+            break
+        else:
+            item = soup.find_all("div", class_="puis-card-container s-card-container s-overflow-hidden aok-relative puis-include-content-margin puis puis-v2rh3j15wdcp4q29xeaptoa72x6 s-latency-cf-section puis-card-border")
+            for i in item:
+                if i != None:
+                    try:
+                        product_title = i.find("span", class_="a-size-medium a-color-base").get_text()
+                        product_name = i.find("span", class_="a-size-medium a-color-base a-text-normal").get_text()
+                        product_price = i.select_one("span.a-price").select_one("span.a-offscreen").get_text()
+                        product_url = i.find("a", class_="a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal", href=True).get("href")
+                        if float(product_price[1:]) <= price:
+                            data[product_name] = [product_title, product_price, f"https://www.amazon.com{product_url}"]
+                    except:
+                        pass
+    return data
