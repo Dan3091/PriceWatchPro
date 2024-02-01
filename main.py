@@ -127,6 +127,7 @@ def start_process():
                                                  "Amazon Notifier Price Go Down",
                                                  fstring_message)
                             send_message(email_name, email_pass, message)
+                            popup_window("Product found check your inbox on Gmail!")
                             break
                     else:
                         popup_window(f"No Results for {product_item}")
